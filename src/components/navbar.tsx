@@ -41,7 +41,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between px-4">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <BrandLogoWithText className="h-8 w-auto" />
+            <BrandLogoWithText className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
