@@ -59,7 +59,7 @@ export default function RootLayout({
         <Script
           defer
           src="https://umami.nareshkhatri.site/script.js"
-          data-website-id="b5e03f6c-bed8-4495-95c3-bfc81f495cb2"
+          data-website-id="06b5c263-3da8-4fac-9e33-d39c5ad24202"
         ></Script>
         <Providers>
           <div className="flex flex-col h-[100dvh]">
