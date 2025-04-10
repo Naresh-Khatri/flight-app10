@@ -1,6 +1,16 @@
 "use client";
 
-import { Search, Check, ChevronsUpDown, X, Ship, MapPin, Calendar, Users, Anchor } from "lucide-react";
+import {
+  Search,
+  Check,
+  ChevronsUpDown,
+  X,
+  Ship,
+  MapPin,
+  Calendar,
+  Users,
+  Anchor,
+} from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import {
@@ -26,7 +36,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const departurePorts = [
   // United States - East Coast
@@ -205,34 +215,43 @@ export function CruiseSearchForm() {
   const [line, setLine] = useState("");
 
   const isFormValid = destination && departure && length && date && line;
+  const [activeFilters, setActiveFilters] = useState<any[]>([]);
 
-  const activeFilters = [
-    destination && {
-      label: destinations.find((d) => d.code === destination)?.name,
-      onClear: () => setDestination(""),
-      icon: <MapPin className="w-4 h-4" />,
-    },
-    departure && {
-      label: departurePorts.find((p) => p.code === departure)?.name,
-      onClear: () => setDeparture(""),
-      icon: <Anchor className="w-4 h-4" />,
-    },
-    length && {
-      label: cruiseLengths.find((l) => l.toLowerCase() === length),
-      onClear: () => setLength(""),
-      icon: <Calendar className="w-4 h-4" />,
-    },
-    date && {
-      label: date === "custom" ? "Custom date" : `Next ${date.split("-")[1]}`,
-      onClear: () => setDate(""),
-      icon: <Calendar className="w-4 h-4" />,
-    },
-    line && {
-      label: cruiseLines.find((l) => l.toLowerCase() === line),
-      onClear: () => setLine(""),
-      icon: <Ship className="w-4 h-4" />,
-    },
-  ].filter(Boolean);
+  useEffect(() => {
+    const foo = [];
+
+    if (destination.length > 0)
+      foo.push({
+        label: destinations.find((d) => d.code === destination)?.name,
+        onClear: () => setDestination(""),
+        icon: <MapPin className="w-4 h-4" />,
+      });
+    if (departure.length > 0)
+      foo.push({
+        label: departurePorts.find((p) => p.code === departure)?.name,
+        onClear: () => setDeparture(""),
+        icon: <Anchor className="w-4 h-4" />,
+      });
+    if (length.length > 0)
+      foo.push({
+        label: cruiseLengths.find((l) => l.toLowerCase() === length),
+        onClear: () => setLength(""),
+        icon: <Calendar className="w-4 h-4" />,
+      });
+    if (date.length > 0)
+      foo.push({
+        label: date === "custom" ? "Custom date" : `Next ${date.split("-")[1]}`,
+        onClear: () => setDate(""),
+        icon: <Calendar className="w-4 h-4" />,
+      });
+    if (line.length > 0)
+      foo.push({
+        label: cruiseLines.find((l) => l.toLowerCase() === line),
+        onClear: () => setLine(""),
+        icon: <Ship className="w-4 h-4" />,
+      }),
+        setActiveFilters(foo);
+  }, [departure, destination, length, date, line]);
 
   const buildSearchUrl = () => {
     const params = new URLSearchParams();
@@ -275,14 +294,18 @@ export function CruiseSearchForm() {
                       key={dest.code}
                       value={dest.code}
                       onSelect={(currentValue) => {
-                        setDestination(currentValue === destination ? "" : currentValue);
+                        setDestination(
+                          currentValue === destination ? "" : currentValue,
+                        );
                       }}
                       className="hover:bg-slate-100"
                     >
                       <Check
                         className={cn(
                           "mr-2 h-4 w-4 text-primary",
-                          destination === dest.code ? "opacity-100" : "opacity-0"
+                          destination === dest.code
+                            ? "opacity-100"
+                            : "opacity-0",
                         )}
                       />
                       {dest.name}
@@ -305,7 +328,8 @@ export function CruiseSearchForm() {
                 <div className="flex items-center">
                   <Anchor className="mr-2 h-5 w-5 text-primary" />
                   {departure
-                    ? departurePorts.find((port) => port.code === departure)?.name
+                    ? departurePorts.find((port) => port.code === departure)
+                        ?.name
                     : "Departure port"}
                 </div>
                 <ChevronsUpDown className="ml-2 h-5 w-5 opacity-50" />
@@ -327,7 +351,9 @@ export function CruiseSearchForm() {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4 text-primary",
-                            departure === port.code ? "opacity-100" : "opacity-0"
+                            departure === port.code
+                              ? "opacity-100"
+                              : "opacity-0",
                           )}
                         />
                         {port.name}
@@ -338,7 +364,7 @@ export function CruiseSearchForm() {
               </Command>
             </PopoverContent>
           </Popover>
-          
+
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -357,7 +383,12 @@ export function CruiseSearchForm() {
               <Command className="bg-transparent">
                 <CommandList>
                   <CommandGroup>
-                    {["next-3-months", "next-6-months", "next-year", "custom"].map((option) => (
+                    {[
+                      "next-3-months",
+                      "next-6-months",
+                      "next-year",
+                      "custom",
+                    ].map((option) => (
                       <CommandItem
                         key={option}
                         value={option}
@@ -367,10 +398,12 @@ export function CruiseSearchForm() {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4 text-primary",
-                            date === option ? "opacity-100" : "opacity-0"
+                            date === option ? "opacity-100" : "opacity-0",
                           )}
                         />
-                        {option === "custom" ? "Custom date" : `Next ${option.split("-")[1]}`}
+                        {option === "custom"
+                          ? "Custom date"
+                          : `Next ${option.split("-")[1]}`}
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -407,7 +440,9 @@ export function CruiseSearchForm() {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4 text-primary",
-                            length === option.toLowerCase() ? "opacity-100" : "opacity-0"
+                            length === option.toLowerCase()
+                              ? "opacity-100"
+                              : "opacity-0",
                           )}
                         />
                         {option}
@@ -428,7 +463,9 @@ export function CruiseSearchForm() {
               >
                 <div className="flex items-center">
                   <Ship className="mr-2 h-5 w-5 text-primary" />
-                  {line ? cruiseLines.find((l) => l.toLowerCase() === line) : "Cruise line"}
+                  {line
+                    ? cruiseLines.find((l) => l.toLowerCase() === line)
+                    : "Cruise line"}
                 </div>
                 <ChevronsUpDown className="ml-2 h-5 w-5 opacity-50" />
               </Button>
@@ -447,7 +484,9 @@ export function CruiseSearchForm() {
                         <Check
                           className={cn(
                             "mr-2 h-4 w-4 text-primary",
-                            line === option.toLowerCase() ? "opacity-100" : "opacity-0"
+                            line === option.toLowerCase()
+                              ? "opacity-100"
+                              : "opacity-0",
                           )}
                         />
                         {option}
@@ -465,7 +504,7 @@ export function CruiseSearchForm() {
             disabled={!isFormValid}
             className={cn(
               "bg-primary hover:bg-primary/90 text-white h-[60px] px-8 text-lg",
-              !isFormValid && "opacity-50"
+              !isFormValid && "opacity-50",
             )}
           >
             <Search className="mr-2 h-5 w-5" />
@@ -536,11 +575,16 @@ export function SelectDeparture({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-0 " align="start bg-slate-900/95 backdrop-blur-xl border-white/10">
+      <PopoverContent
+        align="start"
+        className="p-0 bg-slate-900/95 backdrop-blur-xl border-white/10"
+      >
         <Command>
           <CommandInput placeholder="Search ports..." className="text-white" />
           <CommandList>
-            <CommandEmpty className="text-white/70">No port found.</CommandEmpty>
+            <CommandEmpty className="text-white/70">
+              No port found.
+            </CommandEmpty>
             <CommandGroup>
               {departurePorts.map((port) => (
                 <CommandItem

@@ -12,7 +12,7 @@ export function DestinationsSection() {
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -23,7 +23,8 @@ export function DestinationsSection() {
               Featured Destinations
             </h2>
             <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-              Discover our handpicked selection of world-class cruise destinations
+              Discover our handpicked selection of world-class cruise
+              destinations
             </p>
           </motion.div>
 
@@ -49,11 +50,13 @@ export function DestinationsSection() {
                         className="object-cover transition duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      
+
                       {/* Rating Badge */}
                       <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1">
                         <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                        <span className="text-sm font-medium">{dest.rating.score}</span>
+                        <span className="text-sm font-medium">
+                          {dest.rating.score}
+                        </span>
                       </div>
                     </div>
 
@@ -62,9 +65,7 @@ export function DestinationsSection() {
                       <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
                         {dest.name}
                       </h3>
-                      <p className="text-slate-600 mb-4">
-                        {dest.description}
-                      </p>
+                      <p className="text-slate-600 mb-4">{dest.description}</p>
 
                       {/* Stats */}
                       <div className="flex items-center gap-6 mb-6 text-sm text-slate-600">
@@ -74,7 +75,7 @@ export function DestinationsSection() {
                         </div>
                         <div className="flex items-center gap-2">
                           <MapPin className="w-4 h-4 text-primary" />
-                          <span>{dest.region}</span>
+                          <span>{dest.name}</span>
                         </div>
                       </div>
 
