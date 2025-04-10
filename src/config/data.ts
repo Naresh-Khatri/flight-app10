@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Royal Cruises Line",
+  name: "Royal Cruise Bookings",
   tagline: "The Best Cruise Deals for Your Next Cruise Trip",
   description:
     "Have the ultimate cruise experience. Discover the best cruise deals and save up to 50% on your next cruise trip.",
@@ -22,27 +22,27 @@ export const siteConfig = {
   ],
   logo: {
     path: "/logo.svg",
-    alt: "Royal Cruises Line Logo",
+    alt: "Royal Cruise Bookings Logo",
   },
-  website: "https://royalcruisesline.com",
+  website: "https://royalcruisebookings.com ",
   contact: {
     phone: {
-      display: "+1 888-881-8577",
-      value: "+18888818577",
+      display: "+1 888-975-5883",
+      value: "+18889755883",
     },
-    email: "bookings@royalcruisesline.com",
+    email: "bookings@royalcruisebookings.com ",
     address: "123 Marina Boulevard, Miami, FL 33132, USA",
     hours: "24/7",
     social: {
-      facebook: "https://facebook.com/royalcruisesline",
-      twitter: "https://twitter.com/royalcruisesline",
-      instagram: "https://instagram.com/royalcruisesline",
-      pinterest: "https://pinterest.com/royalcruisesline",
-      youtube: "https://youtube.com/royalcruisesline",
+      facebook: "https://facebook.com/royalcruisebookings",
+      twitter: "https://twitter.com/royalcruisebookings",
+      instagram: "https://instagram.com/royalcruisebookings",
+      pinterest: "https://pinterest.com/royalcruisebookings",
+      youtube: "https://youtube.com/royalcruisebookings",
     },
   },
   company: {
-    name: "Royal Carnivals Solutions Ltd",
+    name: "Royal Cruise Bookings Solutions Ltd",
     founded: "2024",
   },
 };
